@@ -1,10 +1,9 @@
 import { Router } from 'express';
-
 import Paths from '@src/common/constants/Paths';
 import UserRoutes from './UserRoutes';
 import livekitRouter from './livekit';
 import roomRouter from './room';
-
+import sessionRoutes from './sessionRoutes';
 
 /******************************************************************************
                                 Setup
@@ -12,28 +11,21 @@ import roomRouter from './room';
 
 const apiRouter = Router();
 
-
-// ** Add UserRouter ** //
-
-// Init router
+// ------------------- User Routes ------------------- //
 const userRouter = Router();
-
-// Get all users
 userRouter.get(Paths.Users.Get, UserRoutes.getAll);
 userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete);
 
-apiRouter.use('/users', userRouter);
-apiRouter.use('/livekit', livekitRouter);  // ✅ add this
-apiRouter.use('/rooms', roomRouter);
-
-// Add UserRouter
+// Mount all routes
 apiRouter.use(Paths.Users.Base, userRouter);
-
+apiRouter.use('/livekit', livekitRouter);
+apiRouter.use('/rooms', roomRouter);
+apiRouter.use('/sessions', sessionRoutes);
 
 /******************************************************************************
-                                Export default
+                               Export default
 ******************************************************************************/
 
 export default apiRouter;

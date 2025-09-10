@@ -20,7 +20,4 @@ export const config = {
     apiKey: required('LIVEKIT_API_KEY', process.env.LIVEKIT_API_KEY),
     apiSecret: required('LIVEKIT_API_SECRET', process.env.LIVEKIT_API_SECRET),
   },
-  cors: {
-    origins: (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean),
-  },
 };
